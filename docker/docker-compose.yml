@@ -1,0 +1,65 @@
+services:
+  # PostgreSQL Service
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: rag-db
+    ports:
+      - "5432:5432"
+    networks:
+      - my-network
+
+  # Elasticsearch Service
+  elasticsearch:
+    image: elasticsearch:8.17.0
+    container_name: elasticsearch-container
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - my-network
+
+  # Adminer Service (for PostgreSQL management)
+  adminer:
+    image: adminer
+    container_name: adminer-container
+    ports:
+      - "8080:8080"
+    networks:
+      - my-network
+
+  # Kibana Service (for Elasticsearch management)
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.17.0
+    container_name: kibana-container
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+    ports:
+      - "5601:5601"
+    networks:
+      - my-network
+
+  # pgAdmin Service (for PostgreSQL management)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin-container
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - my-network
+
+volumes:
+  pgdata:
+
+networks:
+  my-network:
+    driver: bridge

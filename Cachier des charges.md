@@ -137,7 +137,10 @@ Alternative Options:
 - GPT-4V
 - Gemini Vision
 - Florence
-
+- Whisper for audio
+- Speech-to-text: Whisper API or Google Speech-to-Text.
+- Text model: OpenAI GPT-4 or Hugging Face models.
+- Text-to-speech: Google TTS, Azure Cognitive Services, or Coqui.ai. 
 ## 4. Detailed Implementation Steps
 
 ### 4.1 Project Setup
